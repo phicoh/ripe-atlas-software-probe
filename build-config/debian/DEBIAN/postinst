@@ -1,0 +1,8 @@
+#!/bin/sh
+USER=atlas
+
+set -e
+grep "$USER" /etc/passwd || adduser --system "$USER"
+chown -R "$USER" /var/atlas-probe
+
+setcap cap_net_raw=ep /usr/local/atlas/bb-13.3/bin/busybox
