@@ -1,16 +1,20 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Handel registering with ATLAS regservers
 # 2010 Oct Antony Antony
 
-#exec >/tmp/reginit.out 2>/tmp/reginit.err
-#set -x
+exec >/tmp/reginit.out 2>/tmp/reginit.err
+set -x
 
 STATE_FILE=$1 
 
 if [ X"${DEVICE_NAME}" = X"centos-sw-probe" ]
 then
 	. /usr/local/atlas/bin/arch/centos-sw-probe/redhat-reginit.sh
+elif [ X"${DEVICE_NAME}" = X"debian-sw-probe" ]
+then
+	. /usr/local/atlas/bin/arch/debian-sw-probe/debian-reginit.sh
+        echo "DEVICE_NAME=${DEVICE_NAME}"
 elif [ X"${DEVICE_NAME}" = X"turris-sw-probe" ]
 then
 	. /usr/libexec/atlas-probe-scripts/bin/arch/turris-sw-probe/turris-reginit.sh

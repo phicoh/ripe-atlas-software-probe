@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 # The ATLAS Main Loop
 # 2010 atlas@ripe.net  
 # Written by Daniel Karrenberg, Antony Antony
 # RIPE NCC
 
-#exec >/tmp/ATLAS.out 2>/tmp/ATLAS.err
-#set -x
+exec >/tmp/ATLAS.out 2>/tmp/ATLAS.err
+set -x
 
 DEVICE_NAME=
 if [ -f bin/config.sh ]
@@ -22,6 +22,10 @@ if [ X"${DEVICE_NAME}" = X"centos-sw-probe" ]
 then
 	. /usr/local/atlas/bin/arch/centos-sw-probe/redhat-ATLAS.sh
 	echo "DEVICE_NAME=${DEVICE_NAME}"
+elif [ X"${DEVICE_NAME}" = X"debian-sw-probe" ]
+then
+	. /usr/local/atlas/bin/arch/debian-sw-probe/debian-ATLAS.sh
+        echo "DEVICE_NAME=${DEVICE_NAME}"
 elif [ X"${DEVICE_NAME}" = X"turris-sw-probe" ]
 then
 	. /usr/libexec/atlas-probe-scripts/bin/arch/turris-sw-probe/turris-ATLAS.sh
