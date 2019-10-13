@@ -13,6 +13,8 @@ var_atlas_rel="var/atlas-probe"
 sta_atlas_local="$stadir/$atlas_local_rel"
 sta_var_atlas="$stadir/$var_atlas_rel"
 
+systemd_unit_rel="etc/systemd/system"
+
 #rm -rf "$stadir" 
 mkdir -p "$stadir"
 #rm -rf "$builddir"
@@ -58,10 +60,42 @@ cp -r "$srcdir/probe-busybox" "$builddir/probe-busybox"
 	mkdir -p "$sta_var_atlas/state"
 	echo prod > "$sta_var_atlas/state/mode"
 	mkdir -p "$sta_var_atlas/bin"
+	ln -s /var/atlasdata "$sta_var_atlas/data"
 
 echo 'DEVICE_NAME=debian-sw-probe' > "$sta_var_atlas/bin/config.sh"
 echo 'ATLAS_BASE="'"/$var_atlas_rel"'"' >> "$sta_var_atlas/bin/config.sh"
 echo 'SUB_ARCH="'"debian-atlasswprobe-$VERSION"'"' >> "$sta_var_atlas/bin/config.sh"
+
+mkdir -p "$stadir/$systemd_unit_rel"
+cat > "$stadir/$systemd_unit_rel/atlas.service" << EOF
+[Unit]
+Description=Atlas Probe
+After=network-online.target syslog.target
+
+[Service]
+User=atlas
+Group=nogroup
+Environment=HOME=/$var_atlas_rel
+WorkingDirectory=/$var_atlas_rel
+ExecStart=/usr/local/atlas/bin/ATLAS
+Restart=always
+TimeoutStopSec=60
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+cat > "$stadir/$systemd_unit_rel/var-atlasdata.mount" << EOF
+[Unit]
+Description=Atlas Data
+Before=local-fs.target
+
+[Mount]
+What=tmpfs
+Where=/var/atlasdata
+Type=tmpfs
+Options=noatime,nosuid,nodev,noexec,mode=1777
+EOF
 
 cp -r "$srcdir/build-config/debian/DEBIAN" "$stadir"
 
