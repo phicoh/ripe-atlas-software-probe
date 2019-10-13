@@ -21,7 +21,7 @@ cp -r "$srcdir/probe-busybox" "$builddir/probe-busybox"
 
 # Build
 (
-	cd "$builddir/probe-busybox/libevent-2.0.20-stable"
+	cd "$builddir/probe-busybox/libevent-2.1.11-stable"
 	./configure
 	make
 	cd ..
@@ -35,8 +35,8 @@ cp -r "$srcdir/probe-busybox" "$builddir/probe-busybox"
 	mkdir -p "$sta_atlas_local/bb-13.3"
 	cp -r ./_install/* "$sta_atlas_local/bb-13.3"
 	mkdir -p "$sta_atlas_local/lib"
-	cp ./libevent-2.0.20-stable/.libs/libevent-*so* "$sta_atlas_local/lib"
-	cp ./libevent-2.0.20-stable/.libs/libevent_openssl-*so* "$sta_atlas_local/lib"
+	cp ./libevent-2.1.11-stable/.libs/libevent-*so* "$sta_atlas_local/lib"
+	cp ./libevent-2.1.11-stable/.libs/libevent_openssl-*so* "$sta_atlas_local/lib"
 	mkdir -p "$sta_atlas_local/bin/arch/debian-sw-probe"
 	mkdir -p "$sta_atlas_local/bin/arch/linux"
 )
