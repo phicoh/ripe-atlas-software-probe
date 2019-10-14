@@ -15,9 +15,9 @@ sta_var_atlas="$stadir/$var_atlas_rel"
 
 systemd_unit_rel="etc/systemd/system"
 
-#rm -rf "$stadir" 
+rm -rf "$stadir" 
 mkdir -p "$stadir"
-#rm -rf "$builddir"
+rm -rf "$builddir"
 mkdir -p "$builddir"
 cp -r "$srcdir/probe-busybox" "$builddir/probe-busybox"
 
@@ -98,5 +98,6 @@ Options=noatime,nosuid,nodev,noexec,mode=1777
 EOF
 
 cp -r "$srcdir/build-config/debian/DEBIAN" "$stadir"
+chmod -R og+rX "$stadir"
 
 fakeroot dpkg-deb --build atlasswprobe-$VERSION
