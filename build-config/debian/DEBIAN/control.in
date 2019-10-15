@@ -2,7 +2,7 @@ Package: atlasswprobe
 Version: 5000-1
 Section: base
 Priority: optional
-Architecture: amd64
+Architecture: ARCH
 Depends: 
 Maintainer: Philip Homburg <phomburg@ripe.net>
 Description: RIPE Atlas Software probe

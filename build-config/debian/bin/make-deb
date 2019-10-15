@@ -99,6 +99,22 @@ Options=noatime,nosuid,nodev,noexec,mode=1777
 EOF
 
 cp -r "$srcdir/build-config/debian/DEBIAN" "$stadir"
+case $(uname -m) in
+x86_64)
+	ARCH=amd64
+;;
+armv7l)
+	ARCH=armhf
+;;
+*)
+	echo "Unsupported architecture $(uname -m)"
+	exit 1
+;;
+esac
+
+sed < "$stadir/DEBIAN/control.in" > "$stadir/DEBIAN/control" "s/ARCH/$ARCH/"
+rm -f "$stadir/DEBIAN/control.in"
+
 chmod -R og+rX,ugo-st "$stadir"
 
 fakeroot dpkg-deb --build atlasswprobe-$VERSION
