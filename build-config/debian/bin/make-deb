@@ -96,6 +96,9 @@ What=tmpfs
 Where=/var/atlasdata
 Type=tmpfs
 Options=noatime,nosuid,nodev,noexec,mode=1777
+
+[Install]
+WantedBy=atlas.service
 EOF
 
 cp -r "$srcdir/build-config/debian/DEBIAN" "$stadir"
