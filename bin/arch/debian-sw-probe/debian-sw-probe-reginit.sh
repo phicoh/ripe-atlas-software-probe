@@ -4,7 +4,7 @@ then
 	export ATLAS_BASE
 fi
 
-. /usr/local/atlas/bin/common-pre.sh
+. "$ATLAS_STATIC/bin/common-pre.sh"
 
 # Directories
 
